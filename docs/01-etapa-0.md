@@ -23,7 +23,7 @@ A letra diz o tipo de peça; o número é só a posição no catálogo. A mesma 
 | Q1 a Q5 | Fila e jobs | 5 Assíncrono | Seção 3.3 |
 | D1 a D7 | Deploy, onde roda | Faixa Onde roda | Seção 3.9 |
 | V1 a V7 | Cofre de segredos | Faixa Transversal | Seção 8.1 |
-| A a Q | Seção da Matriz de Segurança | Faixa Segurança e faixa Matriz ativada | Matriz de Segurança |
+| A a R | Seção da Matriz de Segurança | Faixa Segurança e faixa Matriz ativada | Matriz de Segurança |
 
 | Código | O que é |
 | --- | --- |
@@ -47,7 +47,7 @@ A letra diz o tipo de peça; o número é só a posição no catálogo. A mesma 
 | V6 | Credenciais do orquestrador (n8n) |
 | V7 | Cofre de pessoas (gerenciador de senhas) |
 
-Seções da Matriz citadas no quadro: A governança e desenho seguro; B chaves, credenciais e segredos; B.1 agentes de desenvolvimento; C identidade, autenticação e sessão; D autorização, papéis e multi-tenant; E banco de dados e Supabase; F APIs, entradas e respostas; G frontend, navegador e cookies; H criptografia e privacidade; I infraestrutura e cadeia de suprimentos; J operação, monitoramento e recuperação; K segurança de IA; M filas e jobs; N comunicação entre serviços e módulos; O cache, pool e tratamento de dados; P LGPD e direitos do titular; Q acesso administrativo e suporte. A letra L é o resultado da avaliação, não um grupo de controles.
+Seções da Matriz citadas no quadro: A governança e desenho seguro; B chaves, credenciais e segredos; B.1 agentes de desenvolvimento; C identidade, autenticação e sessão; D autorização, papéis e multi-tenant; E banco de dados e Supabase; F APIs, entradas e respostas; G frontend, navegador e cookies; H criptografia e privacidade; I infraestrutura e cadeia de suprimentos; J operação, monitoramento e recuperação; K segurança de IA; M filas e jobs; N comunicação entre serviços e módulos; O cache, pool e tratamento de dados; P LGPD e direitos do titular; Q acesso administrativo e suporte; R testes ofensivos internos. A letra L é o resultado da avaliação, não um grupo de controles.
 
 As peças das colunas 1 Usuários, 2 Frontend, 3 Borda, 4 Backend, 6 Dados e 7 Integrações aparecem por nome, sem código; o que cada uma significa está nas seções 3.1, 3.4 e 3.10.
 

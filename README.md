@@ -7,7 +7,7 @@
 O framework tem duas partes que funcionam juntas:
 
 - **O framework de construção** ([`docs/`](docs/)): Etapa 0, as fases de 0 a 10, o catálogo de decisões de arquitetura e o canvas.
-- **A Matriz de Segurança** ([`docs/seguranca/`](docs/seguranca/matriz-de-seguranca.md)): os controles, de A a Q, que cada decisão de arquitetura ativa, com prioridade de P0 a P3 e mapeamento para OWASP e LGPD.
+- **A Matriz de Segurança** ([`docs/seguranca/`](docs/seguranca/matriz-de-seguranca.md)): os controles, de A a R, que cada decisão de arquitetura ativa, com prioridade de P0 a P3 e mapeamento para OWASP e LGPD.
 
 Para plataformas com agente de IA, o desenho do agente segue o [mp-ai-platform](https://github.com/mathpr9-code/mp-ai-platform), e a segurança da plataforma inteira segue a matriz daqui.
 
@@ -21,6 +21,7 @@ Para plataformas com agente de IA, o desenho do agente segue o [mp-ai-platform](
 - [Etapa 0 e o canvas](#etapa-0-e-o-canvas)
 - [Decisões de arquitetura](#decisões-de-arquitetura)
 - [Matriz de Segurança](#matriz-de-segurança)
+- [Testes ofensivos internos](#testes-ofensivos-internos)
 - [Gate final](#gate-final)
 - [Documentação completa](#documentação-completa)
 
@@ -75,7 +76,7 @@ Cada fase tem a sua parte da Matriz de Segurança. A segurança não espera a Fa
 
 ## Etapa 0 e o canvas
 
-O projeto nasce como uma pasta no VS Code com o quadro dentro, nunca de um quadro em branco. Depois vêm o escopo, as skills, os questionamentos, a estrutura do repositório e os segredos. Por último, o desenho no **Canvas de Arquitetura de Plataforma**: sete colunas fixas (Usuários, Frontend, Borda, Backend, Assíncrono, Dados, Integrações) e as faixas de fronteiras de confiança, onde roda, cofre e Matriz ativada.
+O projeto nasce como uma pasta no VS Code com o quadro dentro, nunca de um quadro em branco. Depois vêm o escopo, as skills, os questionamentos, a estrutura do repositório e os segredos. Por último, o desenho no **Canvas de Arquitetura de Plataforma**: sete colunas fixas (Usuários, Frontend, Borda, Backend, Assíncrono, Dados, Integrações) com o que cada uma decide e a segurança de cada coluna. Em cima, a faixa de confiança mostra onde o dado é só pedido e onde a regra é aplicada; embaixo, onde roda, cofre, Matriz ativada, testes ofensivos e gate.
 
 ![Canvas de Arquitetura de Plataforma](diagramas/canvas-plataforma.svg)
 
@@ -109,10 +110,23 @@ A [matriz](docs/seguranca/matriz-de-seguranca.md) é o que transforma "está seg
 | O cache, pool e tratamento de dados | Com cache, pool, importação ou exportação |
 | P LGPD e direitos do titular | Com dado pessoal |
 | Q acesso administrativo e suporte | Com painel admin ou acesso de suporte |
+| R testes ofensivos internos | Antes do primeiro deploy público e a cada mudança de autenticação, API, domínio ou storage |
 
 **Prioridades:** P0 bloqueia a publicação; P1 é corrigido antes do release ou mitigado por escrito; P2 e P3 entram no plano de melhoria.
 
 **Cobertura mapeada:** OWASP Top 10:2025, OWASP API Security Top 10:2023, OWASP Top 10 para LLM (2026), OWASP Top 10 para aplicações agênticas (2026), OWASP MCP Top 10 e Resolução CD/ANPD nº 15/2024 (comunicação de incidente). A matriz diz onde cada item de cada lista é tratado, para que nada fique sem controle.
+
+## Testes ofensivos internos
+
+Antes que alguém de fora teste a plataforma, ela é atacada por dentro, com as ferramentas que um atacante usaria, sempre no que é seu ou com autorização escrita, em staging e com dado fictício.
+
+| Ferramenta | Para quê |
+| --- | --- |
+| [Gobuster](https://github.com/OJ/gobuster) | Mapear o que está exposto sem querer: diretórios, arquivos (`.env`, `.git`, backup), subdomínios, virtual hosts e buckets |
+| [TestSprite](https://www.testsprite.com/) | Testes automatizados com IA de UI, API e ponta a ponta, ligados ao editor por MCP |
+| [Burp Suite](https://portswigger.net/burp) ou [ZAP](https://www.zaproxy.org/) | Teste manual e DAST de autorização, sessão e injeção: trocar IDs, repetir requisição com outro token, mexer em campos privilegiados |
+
+Todo achado vira caso na suíte de erros antes da correção. Ver [`docs/10-testes-e-gate.md`](docs/10-testes-e-gate.md), seção 11.2, e a seção R da matriz.
 
 ## Gate final
 
@@ -132,10 +146,10 @@ Nada vai para produção sem a revisão de segurança assinada, feita em sessão
 | 07 | [Autenticação e APIs](docs/07-autenticacao-e-apis.md) | Fases 4 e 5 |
 | 08 | [Segredos e criptografia](docs/08-segredos-e-criptografia.md) | Fase 6, cofres, API keys, .env cifrado |
 | 09 | [Frontend e infraestrutura](docs/09-frontend-e-infraestrutura.md) | Fases 7 e 8, controles para agentes de desenvolvimento |
-| 10 | [Testes e gate](docs/10-testes-e-gate.md) | Fase 9, suíte de erros, gate final |
+| 10 | [Testes e gate](docs/10-testes-e-gate.md) | Fase 9, suíte de erros, testes ofensivos internos, gate final |
 | 11 | [Produção e IA](docs/11-producao-e-ia.md) | Fase 10 e regras para agentes de IA |
 | 12 | [Entregáveis](docs/12-entregaveis.md) | o que cada plataforma guarda |
-| — | [Matriz de Segurança](docs/seguranca/matriz-de-seguranca.md) | controles A–Q, cobertura OWASP e ANPD |
+| — | [Matriz de Segurança](docs/seguranca/matriz-de-seguranca.md) | controles A–R, cobertura OWASP e ANPD |
 | — | [Fontes](docs/fontes.md) | documentação oficial usada nas decisões |
 
 ---

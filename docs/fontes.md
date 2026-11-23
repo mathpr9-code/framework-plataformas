@@ -18,3 +18,11 @@ Arquitetura, consultadas em 12/11/2026:
 As peças de cofre V1 a V7 descrevem categorias. O que foi conferido de cada produto, e o que não foi, está nas tabelas das seções 3.9 e 8.1, com a data e o tipo de fonte.
 
 As seções 3.5 a 3.10 (tratamento de dados, resiliência, cache, linguagem, onde roda, canvas) são critério de desenho, sem uma fonte oficial única por trás; devem ser tratadas como ponto de partida e ajustadas com o que cada projeto medir.
+
+
+Testes ofensivos internos (seção 11.2), conferidos em 23/11/2026:
+
+- [Gobuster](https://github.com/OJ/gobuster) — repositório oficial
+- [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload) — PortSwigger
+- [ZAP — mapa de recursos Burp → ZAP](https://www.zaproxy.org/docs/burp-to-zap-feature-map/) — projeto oficial
+- [TestSprite](https://www.testsprite.com/) e [MCP Server](https://docs.testsprite.com/mcp/getting-started/overview) — fornecedor

@@ -22,6 +22,7 @@ As seções A a J valem para toda plataforma. As demais são ligadas pela arquit
 | Pool de conexões, cache, importação ou exportação | O |
 | Dado pessoal | P |
 | Painel administrativo ou acesso de suporte | Q |
+| Deploy público, ou mudança de autenticação, API, domínio ou storage | R |
 
 ## Cobertura por referência
 
@@ -424,6 +425,21 @@ Os prazos de incidente vêm da Resolução CD/ANPD nº 15/2024. O texto no DOU b
 | Contas de serviço | Cada conta de serviço tem dono, finalidade e escopo; contas sem uso são removidas. | P2 |
 | Mudança de permissão | Concessão e elevação de papel registradas com quem concedeu; revisão periódica dos administradores. | P1 |
 
+## R. Testes ofensivos internos
+
+Obrigatória antes do primeiro deploy público e a cada mudança de autenticação, autorização, API, domínio ou storage. Ferramentas e regras na [seção 11.2 do Framework](../10-testes-e-gate.md).
+
+| Controle | Como verificar / evidência | Prioridade |
+| --- | --- | --- |
+| Autorização e escopo do teste | Escopo escrito (domínios, ambientes, janela) e autorização do dono do sistema antes de qualquer varredura; nada fora do escopo é testado. | P0 |
+| Superfície exposta | Varredura de diretórios, arquivos, subdomínios e virtual hosts (Gobuster ou equivalente) sem caminho sensível acessível: painel admin, `.env`, `.git`, backup, dump, rota de teste, preview. | P0 |
+| Autorização por objeto e por função | Teste manual com dois tenants e dois papéis (Burp Suite ou ZAP): trocar ID, repetir requisição com outro token e enviar campo privilegiado não devolve nem altera dado alheio. | P0 |
+| Sessão | Expiração, logout, revogação e rotação de token conferidos no proxy de interceptação. | P1 |
+| Fluxos funcionais e de API | Testes automatizados de UI, API e ponta a ponta (TestSprite ou equivalente) cobrindo papéis diferentes e entradas inválidas, verdes antes do gate. | P1 |
+| DAST no pipeline | Varredura dinâmica contra staging a cada release, com achados triados. | P2 |
+| Dado nos testes | Testes rodam em staging com dado fictício e contas de teste próprias; ferramenta em nuvem de terceiro consta na lista de operadores quando houver dado pessoal. | P1 |
+| Achado vira caso | Todo achado entra na suíte de erros antes da correção e é retestado depois. | P1 |
+
 ## L. Resultado da avaliação
 
 Ao final, registrar:
@@ -456,6 +472,10 @@ Ao final, registrar:
 - [OWASP MCP Top 10](https://owasp.org/projects/mcp-top-10) — página oficial, beta
 - [OWASP API Security Top 10 2023](https://owasp.org/API-Security/editions/2023/fr/0x00-toc/) — edição oficial
 - [Azure Architecture Center — Cloud design patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/) — filas, retry, disjuntor, saga
+- [Gobuster](https://github.com/OJ/gobuster) — repositório oficial, licença Apache 2.0
+- [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload) e [Professional](https://portswigger.net/burp) — PortSwigger
+- [ZAP](https://www.zaproxy.org/) e [mapa Burp → ZAP](https://www.zaproxy.org/docs/burp-to-zap-feature-map/) — projeto oficial
+- [TestSprite](https://www.testsprite.com/) e [documentação do MCP](https://docs.testsprite.com/mcp/getting-started/overview) — fornecedor
 - Resolução CD/ANPD nº 15/2024 — Regulamento de Comunicação de Incidente de Segurança (consultada por resumos; ver nota na seção P)
 - Lei nº 13.709/2018 (LGPD)
 
