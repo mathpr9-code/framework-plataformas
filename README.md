@@ -76,7 +76,7 @@ Cada fase tem a sua parte da Matriz de Segurança. A segurança não espera a Fa
 
 ## Etapa 0 e o canvas
 
-O projeto nasce como uma pasta no VS Code com o quadro dentro, nunca de um quadro em branco. Depois vêm o escopo, as skills, os questionamentos, a estrutura do repositório e os segredos. Por último, o desenho no **Canvas de Arquitetura de Plataforma**: sete colunas fixas (Usuários, Frontend, Borda, Backend, Assíncrono, Dados, Integrações) com o que cada uma decide e a segurança de cada coluna. Em cima, a faixa de confiança mostra onde o dado é só pedido e onde a regra é aplicada; embaixo, onde roda, cofre, Matriz ativada, testes ofensivos e gate.
+O projeto nasce como uma pasta no VS Code com o quadro dentro, nunca de um quadro em branco. Depois vêm o escopo, as skills, os questionamentos, a estrutura do repositório e os segredos. Por último, o desenho no **Canvas de Arquitetura de Plataforma**: sete colunas fixas (Usuários, Frontend, Borda, Backend, Assíncrono, Dados, Integrações) com o que cada uma decide, o que direciona a escolha e, embaixo de cada coluna, as seções da Matriz de Segurança que ela ativa e o controle que não pode faltar. Nas faixas de baixo: onde roda, cofre, legenda da matriz, testes ofensivos e gate.
 
 ![Canvas de Arquitetura de Plataforma](diagramas/canvas-plataforma.svg)
 
